@@ -1,0 +1,65 @@
+const { EntitySchema } = require("typeorm");
+
+module.exports = new EntitySchema({
+  name: "Course",
+  tableName: "COURSE",
+  columns: {
+    id: {
+      type: "uuid",
+      primary: true,
+      generated: "uuid",
+    },
+    name: {
+      type: "varchar",
+      length: 100,
+      nullable: false,
+    },
+    description: {
+      type: "text",
+      nullable: false,
+    },
+    startAt: {
+      name: "start_at",
+      type: "timestamp",
+      nullable: false,
+    },
+    endAt: {
+      name: "end_at",
+      type: "timestamp",
+      nullable: false,
+    },
+    maxParticipants: {
+      name: "max_participants",
+      type: "int",
+      nullable: false,
+    },
+    meetingUrl: {
+      name: "meeting_url",
+      type: "varchar",
+      length: 2048,
+      nullable: true,
+    },
+    createdAt: {
+      name: "created_at",
+      type: "timestamp",
+      createDate: true,
+    },
+    updatedAt: {
+      name: "updated_at",
+      type: "timestamp",
+      updateDate: true,
+    },
+  },
+  relations: {
+    user: {
+      type: "many-to-one",
+      target: "User",
+      joinColumn: { name: "user_id" },
+    },
+    skill: {
+      type: "many-to-one",
+      target: "Skill",
+      joinColumn: { name: "skill_id" },
+    },
+  },
+});
